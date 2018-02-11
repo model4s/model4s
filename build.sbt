@@ -14,7 +14,8 @@ lazy val core = (project in file("model4s"))
     libraryDependencies ++= Seq(
       "org.scalameta" %% "scalameta" % "1.7.0" % Provided,
       "org.scala-lang" % "scala-reflect" % "2.12.1",
-      compilerPlugin("org.scalameta" % "paradise" % "3.0.0-M8" cross CrossVersion.full)
+      compilerPlugin("org.scalameta" % "paradise" % "3.0.0-M8" cross CrossVersion.full),
+      "com.twitter" %% "bijection-core" % "0.9.6"
     )
   )
 

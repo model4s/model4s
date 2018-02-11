@@ -1,4 +1,5 @@
-import com.github.model4s.MapClassPair
+import com.github.model4s.Converter.Mappable
+import com.github.model4s.{Converter, MapClassPair}
 
 /**
   * Showcases of API usage
@@ -6,5 +7,14 @@ import com.github.model4s.MapClassPair
 object Main extends App {
   case class User(id: Int, name: String)
   def mapify[T: MapClassPair](t: T) = implicitly[MapClassPair[T]].toMap(t)
-  mapify(User(11, "Steve")) foreach println
+  def materialize[T: MapClassPair](map: Mappable) = implicitly[MapClassPair[T]].fromMap(map)
+
+  val samplePerson = User(13, "Steve")
+  val sampleMap = Map("id" -> 15, "name" -> "Bill")
+  mapify(samplePerson) foreach println
+  println(materialize[User](sampleMap))
+
+  //Bijection
+  println("toMap - "+Converter.transform[User].apply(samplePerson))
+  println("fromMap - "+Converter.transform[User].invert(sampleMap))
 }

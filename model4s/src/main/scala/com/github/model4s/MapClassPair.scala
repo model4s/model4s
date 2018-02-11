@@ -1,7 +1,18 @@
 package com.github.model4s
 
+import com.github.model4s.Converter.Mappable
+
 import scala.language.experimental.macros
 import scala.reflect.macros.whitebox.Context
+import com.twitter.bijection._
+
+/**
+  * Bijection: Case Class <-> Map (bijection from com.twitter.bijection-core)
+  */
+object Converter {
+  type Mappable = Map[String, Any]
+  def transform[T](implicit m: MapClassPair[T]) = Bijection.build[T, Mappable](m.toMap)(m.fromMap)
+}
 
 /**
   * Case Class <-> Map compile time transformer
@@ -10,8 +21,8 @@ import scala.reflect.macros.whitebox.Context
   * @tparam T type of case class
   */
 trait MapClassPair[T] {
-  def toMap(t: T): Map[String, Any]
-  def fromMap(map: Map[String, Any]): T
+  def toMap(t: T): Mappable
+  def fromMap(map: Mappable): T
 }
 
 /**
@@ -42,8 +53,8 @@ object MapClassPair {
 
     c.Expr[MapClassPair[T]] { q"""
       new MapClassPair[$tpe] {
-        def toMap(t: $tpe): Map[String, Any] = Map(..$toMapParams)
-        def fromMap(map: Map[String, Any]): $tpe = $companion(..$fromMapParams)
+        def toMap(t: $tpe): Mappable = Map(..$toMapParams)
+        def fromMap(map: Mappable): $tpe = $companion(..$fromMapParams)
       }
     """ }
   }
