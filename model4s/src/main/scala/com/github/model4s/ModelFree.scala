@@ -8,6 +8,23 @@ class DTO extends StaticAnnotation
 
 class DAO extends StaticAnnotation
 
+/**
+  * Scala macros to generate oft-repeated models with annotations
+  * in similar way to Java's lombok, but in class level
+  *  <pre>
+  * case class Person(id:Long, name:String, email:String)
+  *
+  * @ModelFree case class Person( @DAO id: Int,
+  *                               @DAO @DTO name: String,
+  *                               @DAO @DTO email: String)
+  *
+  * //Transforms companion object into this
+  * object User {
+  *   case class DAO(id: Int, name: String, email: String)
+  *   case class DTO(name: String, email: String)
+  *   }
+  * </pre>
+  **/
 class ModelFree extends StaticAnnotation {
   inline def apply(defn: Any): Any = meta {
     val (cls, companion) = defn match {
