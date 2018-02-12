@@ -1,4 +1,4 @@
-package com.github.model4s
+package com.github.model4s.modelfree
 
 import scala.annotation.StaticAnnotation
 import scala.collection.mutable

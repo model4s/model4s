@@ -1,5 +1,7 @@
 package com.github.model4s
 
+import com.github.model4s.modelfree.{DAO, DTO, ModelFree}
+
 object ModelFreeMain extends App {
 
   @ModelFree case class Person(

@@ -1,5 +1,6 @@
-import com.github.model4s.Converter.Mappable
-import com.github.model4s.{Converter, MapClassPair}
+import com.github.model4s.cmap.Converter.Mappable
+import com.github.model4s.MapClassPair
+import com.github.model4s.cmap.{Converter, MapClassPair}
 
 /**
   * Showcases of API usage

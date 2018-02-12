@@ -1,10 +1,10 @@
-package com.github.model4s
+package com.github.model4s.cmap
 
-import com.github.model4s.Converter.Mappable
+import com.github.model4s.cmap.Converter.Mappable
+import com.twitter.bijection._
 
 import scala.language.experimental.macros
 import scala.reflect.macros.whitebox.Context
-import com.twitter.bijection._
 
 /**
   * Bijection: Case Class <-> Map (bijection from com.twitter.bijection-core)
