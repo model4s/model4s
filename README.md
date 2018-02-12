@@ -19,6 +19,18 @@ case class PersonDAO(id:Long, name:String, email:String)
 
 case class PersonDTO(name:String, email:String, goodsAmount: Int)
 ```
+Model4s solves this in the next way:
+
+```scala
+import com.github.model4s._
+
+@ModelFree case class Person(
+  @dao      id : Int,
+  @dao @dto name : String,
+  @dao @dto email : String,
+       @dto goodsAmount: Int
+)
+```
 
 After business layer/DAO/DTO moving towards to the gateway of your App - `HTTP REST APIs`, now you want to describe
 entities for serving HTTP requests/responses:
@@ -32,7 +44,7 @@ case class PersonPut(id:Long, name:String, email:String)
 ```
 That is a lot of boilerplate! Maintaining all of this models quickly becomes tedious for more complicated models.
 
-With Model4s, you can easily reduce all this model to the single point:
+With Model4s, you can easily reduce all this 6 models to the single point:
 ```scala
 import com.github.model4s._
 
@@ -43,6 +55,7 @@ import com.github.model4s._
        @dto                   goodsAmount: Int
 )
 ```
+### Microservices
 
 If you use microservice architecture possibly you can duplicate business model in different part of services
 like HTTP based entity like e.g. `Gateway Service` use `User` model for auth/registration and send it to 
