@@ -1,6 +1,6 @@
 package com.github.model4s.cmap
 
-import com.github.model4s.cmap.Converter.CaseClassMap
+import com.github.model4s.cmap.Mappable.CaseClassMap
 import com.twitter.bijection._
 
 import scala.language.experimental.macros
@@ -9,7 +9,7 @@ import scala.reflect.macros.whitebox.Context
 /**
   * Bijection: Case Class <-> Map (bijection from com.twitter.bijection-core)
   */
-object Converter {
+object Mappable {
   type CaseClassMap = Map[String, Any]
   def transform[T](implicit m: MapClassPair[T]) = Bijection.build[T, CaseClassMap](m.toMap)(m.fromMap)
 }

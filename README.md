@@ -62,3 +62,23 @@ like HTTP based entity like e.g. `Gateway Service` use `User` model for auth/reg
 `Registration` service and further in business flow to `UserStatistic` service, 3 services serve same User model,
 Model4s allows to get rid of this, you have the single point of configuration which can be wrapped up in reusable
 submodule/jar/war file etc.
+
+## Case Class <-> Map Transformation
+Model4s allows to make this transformation seamlessly, it wraps `macro` into twitter's `Bijection` type.
+
+Let's suppose, you have the next input:
+```scala
+case class User(id: Int, name: String)
+
+val samplePerson = User(13, "Steve")
+val sampleMap = Map("id" -> 15, "name" -> "Bill")
+```
+
+Model4s handles it in the next way with `Mappable`:
+```scala
+Mappable.transform[User].apply(samplePerson)
+
+Mappable.transform[User].invert(sampleMap)
+```
+
+`Mappable` is wrapper over twitter's `Bijection`, to be more precise: `Bijection.build[T, CaseClassMap]`

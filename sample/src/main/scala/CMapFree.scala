@@ -1,5 +1,5 @@
-import com.github.model4s.cmap.Converter.CaseClassMap
-import com.github.model4s.cmap.{Converter, MapClassPair}
+import com.github.model4s.cmap.Mappable.CaseClassMap
+import com.github.model4s.cmap.{Mappable, MapClassPair}
 
 /**
   * Showcases of API usage
@@ -15,6 +15,6 @@ object CMapFree extends App {
   println(materialize[User](sampleMap))
 
   //Bijection
-  println("toMap - "+Converter.transform[User].apply(samplePerson))
-  println("fromMap - "+Converter.transform[User].invert(sampleMap))
+  println("toMap - "+Mappable.transform[User].apply(samplePerson))
+  println("fromMap - "+Mappable.transform[User].invert(sampleMap))
 }
