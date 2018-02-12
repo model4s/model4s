@@ -30,11 +30,18 @@ class ModelFree extends StaticAnnotation {
       .groupBy { case (modifier, _) => modifier.toString() }
       .mapValues(_.map { case (_, param) => param })
 
+    /**
+      * Generate necessary case class
+      * scala macro api - https://goo.gl/2WGipD
+      */
     val models = grouped.map({case (annotation, classParams) =>
       val className = Type.Name(annotation.stripPrefix("@").capitalize)
       q"case class $className[..${cls.tparams}](..$classParams)"
     })
 
+    /**
+      * Push case classes (marked by annotation) into companion object of the target class
+      */
     val newCompanion = companion.copy(
       templ = companion.templ.copy(
         stats = Some(companion.templ.stats.getOrElse(Nil) ++ models)

@@ -4,7 +4,7 @@ import com.github.model4s.{Converter, MapClassPair}
 /**
   * Showcases of API usage
   */
-object Main extends App {
+object CMapFree extends App {
   case class User(id: Int, name: String)
   def mapify[T: MapClassPair](t: T) = implicitly[MapClassPair[T]].toMap(t)
   def materialize[T: MapClassPair](map: Mappable) = implicitly[MapClassPair[T]].fromMap(map)
