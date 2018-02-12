@@ -4,10 +4,6 @@ import scala.annotation.StaticAnnotation
 import scala.collection.mutable
 import scala.meta._
 
-class dto extends StaticAnnotation
-
-class dao extends StaticAnnotation
-
 /**
   * Scala macros to generate oft-repeated models with annotations
   * in similar way to Java's lombok, but in class level
@@ -38,7 +34,8 @@ class ModelFree extends StaticAnnotation {
       seenMods = mutable.Set.empty[String]
       modifier <- param.mods if seenMods.add(modifier.toString)
       newParam <- modifier match {
-        case mod"@dto" | mod"@dao" => Some(param.copy(mods = Nil))
+        case mod"@dto" | mod"@dao" |
+             mod"@get" | mod"@put" | mod"@post" | mod"@delete" => Some(param.copy(mods = Nil))
         case _ => None
       }
     } yield modifier -> newParam

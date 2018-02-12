@@ -1,5 +1,7 @@
 package com.github.model4s.modelfree
 
+import com.github.model4s.modelfree.Base._
+
 import org.scalatest._
 import Matchers._
 
