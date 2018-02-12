@@ -1,5 +1,4 @@
 import com.github.model4s.cmap.Converter.Mappable
-import com.github.model4s.MapClassPair
 import com.github.model4s.cmap.{Converter, MapClassPair}
 
 /**
