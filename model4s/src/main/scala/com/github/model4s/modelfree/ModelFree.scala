@@ -4,9 +4,9 @@ import scala.annotation.StaticAnnotation
 import scala.collection.mutable
 import scala.meta._
 
-class DTO extends StaticAnnotation
+class dto extends StaticAnnotation
 
-class DAO extends StaticAnnotation
+class dao extends StaticAnnotation
 
 /**
   * Scala macros to generate oft-repeated models with annotations
@@ -14,9 +14,9 @@ class DAO extends StaticAnnotation
   *  <pre>
   * case class Person(id:Long, name:String, email:String)
   *
-  * @ModelFree case class Person( @DAO id: Int,
-  *                               @DAO @DTO name: String,
-  *                               @DAO @DTO email: String)
+  * @ModelFree case class Person( @dao id: Int,
+  *                               @dao @dto name: String,
+  *                               @dao @dto email: String)
   *
   * //Transforms companion object into this
   * object User {
@@ -38,7 +38,7 @@ class ModelFree extends StaticAnnotation {
       seenMods = mutable.Set.empty[String]
       modifier <- param.mods if seenMods.add(modifier.toString)
       newParam <- modifier match {
-        case mod"@DTO" | mod"@DAO" => Some(param.copy(mods = Nil))
+        case mod"@dto" | mod"@dao" => Some(param.copy(mods = Nil))
         case _ => None
       }
     } yield modifier -> newParam
