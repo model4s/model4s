@@ -1,8 +1,8 @@
 ## Model4s
 Library for generation boilerplate-free code for models in compile time with Scala macro
 
-[![Build Status](https://api.travis-ci.org/arukavytsia/model4s.png)](https://travis-ci.org/arukavytsia/model4s/)
-[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/arukavytsia/model4s/blob/master/LICENSE)
+[![Build Status](https://api.travis-ci.org/scala-jedis/model4s.png)](https://travis-ci.org/scala-jedis/model4s/)
+[![License](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/scala-jedis/model4s/blob/master/LICENSE)
 
 Scala macros to generate oft-repeated models with annotations and convenient `case class` conversion.
 

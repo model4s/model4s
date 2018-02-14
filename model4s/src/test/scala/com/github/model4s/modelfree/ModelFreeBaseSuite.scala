@@ -5,7 +5,7 @@ import com.github.model4s.modelfree.Base._
 import org.scalatest._
 import Matchers._
 
-class ModelFreeSuite extends FunSuite {
+class ModelFreeBaseSuite extends FunSuite {
 
   test("DAO and DTO models") {
     @ModelFree case class Person(
@@ -32,8 +32,7 @@ class ModelFreeSuite extends FunSuite {
     """Person.Dto(name = "Bill", emailS = "Bill@example.com")""" shouldNot compile
   }
 
-  test ("Instance of generated class") {
-
+  test ("Dat/Dto direct treat to generated class") {
     @ModelFree case class Person(
                                   @dao id: Int,
                                   @dao @dto name: String,
@@ -45,6 +44,5 @@ class ModelFreeSuite extends FunSuite {
 
     """@ModelFree def sqrt(x:Double) = math.sqrt(x)""" shouldNot compile
     """@ModelFree val age = 30 """" shouldNot compile
-
   }
 }
