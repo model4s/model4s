@@ -32,6 +32,11 @@ import com.github.model4s._
 )
 ```
 
+Annotation `ModelFree` is a marker for single point of `base model` configuration,
+you cat treat `Person` class as full join of model for code generation, in this situation it's `Dao` and `Dto`.
+It will generate companion object for class `Person` with nested case classes for models, so you can call it in 
+the next way: `Person.Dao` and `Person.Dto`.
+
 After business layer/DAO/DTO moving towards to the gateway of your App - `HTTP REST APIs`, now you want to describe
 entities for serving HTTP requests/responses:
 
@@ -63,8 +68,9 @@ like HTTP based entity like e.g. `Gateway Service` use `User` model for auth/reg
 Model4s allows to get rid of this, you have the single point of configuration which can be wrapped up in reusable
 submodule/jar/war file etc.
 
-## Case Class <-> Map Transformation
-Model4s allows to make this transformation seamlessly, it wraps `macro` into twitter's `Bijection` type.
+## Case Class <-> Map transformation
+Model4s allows to make transformation between `map` and `case classes` seamlessly, it wraps `macro` into 
+twitter's `Bijection` type.
 
 Let's suppose, you have the next input:
 ```scala
@@ -76,9 +82,9 @@ val sampleMap = Map("id" -> 15, "name" -> "Bill")
 
 Model4s handles it in the next way with `Mappable`:
 ```scala
-Mappable.transform[User].apply(samplePerson)
+val map = Mappable.transform[User].apply(samplePerson)
 
-Mappable.transform[User].invert(sampleMap)
+val user = Mappable.transform[User].invert(sampleMap)
 ```
 
 `Mappable` is wrapper over twitter's `Bijection`, to be more precise: `Bijection.build[T, CaseClassMap]`
