@@ -1,5 +1,3 @@
-package com.github.model4s
-
 import com.github.model4s.modelfree.Base._
 import com.github.model4s.modelfree.ModelFree
 import com.github.model4s.modelfree.Rest.get

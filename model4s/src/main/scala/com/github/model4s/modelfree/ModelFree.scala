@@ -7,19 +7,20 @@ import scala.meta._
 /**
   * Scala macros to generate oft-repeated models with annotations
   * in similar way to Java's lombok, but in class level
-  *  <pre>
+  * {{{
   * case class Person(id:Long, name:String, email:String)
   *
   * @ModelFree case class Person( @dao id: Int,
   *                               @dao @dto name: String,
   *                               @dao @dto email: String)
   *
+  *
   * //Transforms companion object into this
   * object User {
-  *   case class DAO(id: Int, name: String, email: String)
-  *   case class DTO(name: String, email: String)
+  *   case class Dao(id: Int, name: String, email: String)
+  *   case class Dto(name: String, email: String)
   *   }
-  * </pre>
+  * }}}
   **/
 class ModelFree extends StaticAnnotation {
   inline def apply(defn: Any): Any = meta {
@@ -48,7 +49,7 @@ class ModelFree extends StaticAnnotation {
       * Generate necessary case class
       * scala macro api - https://goo.gl/2WGipD
       */
-    val models = grouped.map({case (annotation, classParams) =>
+    val models = grouped.map({ case (annotation, classParams) =>
       val className = Type.Name(annotation.stripPrefix("@").capitalize)
       q"case class $className[..${cls.tparams}](..$classParams)"
     })

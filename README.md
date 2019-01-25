@@ -68,7 +68,7 @@ like HTTP based entity like e.g. `Gateway Service` use `User` model for auth/reg
 Model4s allows to get rid of this, you have the single point of configuration which can be wrapped up in reusable
 submodule/jar/war file etc.
 
-## Case Class <-> Map transformation
+### Case Class <-> Map transformation
 Model4s allows to make transformation between `map` and `case classes` seamlessly, it wraps `macro` into 
 twitter's `Bijection` type.
 
@@ -88,3 +88,10 @@ val user = Mappable.transform[User].invert(sampleMap)
 ```
 
 `Mappable` is wrapper over twitter's `Bijection`, to be more precise: `Bijection.build[T, CaseClassMap]`
+
+## Intellij Idea support
+With default settings Intellij doesn't support Scala's macros, it can be enabled in settings:
+ 
+```Build, Execution, Deployment -> Compiler -> Scala Compiler -> Scala Compiler Server -> enable "Macros" tab``` 
+
+**License - MIT**
