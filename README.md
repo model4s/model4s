@@ -6,6 +6,11 @@ Library for generation boilerplate-free code for models in compile time with Sca
 
 Scala macros to generate oft-repeated models with annotations and convenient `case class` conversion.
 
+Usage:
+````
+libraryDependencies += "io.github.model4s" %% "model4s" % "1.0"
+````
+
 Suppose you have the next model `Person`:
 ```scala
 case class Person(id:Long, name:String, email:String, goodsAmount: Int)
@@ -19,10 +24,12 @@ case class PersonDAO(id:Long, name:String, email:String)
 
 case class PersonDTO(name:String, email:String, goodsAmount: Int)
 ```
+
 Model4s solves this in the next way:
 
 ```scala
-import com.github.model4s._
+import com.github.model4s.modelfree.Base._
+import com.github.model4s.modelfree.ModelFree
 
 @ModelFree case class Person(
   @dao      id : Int,
@@ -47,12 +54,12 @@ case class PersonPost(name:String, email:String)
 
 case class PersonPut(id:Long, name:String, email:String)
 ```
+
 That is a lot of boilerplate! Maintaining all of this models quickly becomes tedious for more complicated models.
 
 With Model4s, you can easily reduce all this 6 models to the single point:
-```scala
-import com.github.model4s._
 
+```scala
 @ModelFree case class Person(
   @dao      @get       @put   id : Int,
   @dao @dto      @post @put   name : String,
@@ -60,6 +67,7 @@ import com.github.model4s._
        @dto                   goodsAmount: Int
 )
 ```
+
 ### Microservices
 
 If you use microservice architecture possibly you can duplicate business model in different part of services
@@ -73,6 +81,7 @@ Model4s allows to make transformation between `map` and `case classes` seamlessl
 twitter's `Bijection` type.
 
 Let's suppose, you have the next input:
+
 ```scala
 case class User(id: Int, name: String)
 
@@ -81,6 +90,7 @@ val sampleMap = Map("id" -> 15, "name" -> "Bill")
 ```
 
 Model4s handles it in the next way with `Mappable`:
+
 ```scala
 val map = Mappable.transform[User].apply(samplePerson)
 
